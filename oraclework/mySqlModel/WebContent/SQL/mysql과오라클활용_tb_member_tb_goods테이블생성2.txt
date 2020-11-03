@@ -1,0 +1,86 @@
+create table tb_member(
+m_id VARCHAR(10) NOT NULL PRIMARY KEY,
+m_pw VARCHAR(10) NOT NULL,
+m_level VARCHAR(10) NOT NULL,
+m_name VARCHAR(20) NOT NULL,
+m_email VARCHAR(80)
+)DEFAULT CHARSET=euckr;
+insert into tb_member values('id001','pw001','°ü¸®ÀÚ','È«01','test01');
+insert into tb_member values('id002','pw002','ÆÇ¸ÅÀÚ','È«02','test02');
+insert into tb_member values('id003','pw003','ÆÇ¸ÅÀÚ','È«03','test03');
+insert into tb_member values('id004','pw004','±¸¸ÅÀÚ','È«04','test04');
+insert into tb_member values('id005','pw005','±¸¸ÅÀÚ','È«05','test05');
+
+
+
+create table tb_goods(
+g_code VARCHAR(10) NOT NULL PRIMARY KEY,
+g_name VARCHAR(10) NOT NULL,
+g_cate VARCHAR(10) NOT NULL,
+g_price VARCHAR(20) NOT NULL,
+g_desc VARCHAR(80)
+)DEFAULT CHARSET=euckr;
+
+create table tb_goods(
+g_code VARCHAR(20) NOT NULL PRIMARY KEY,
+m_id VARCHAR(20) NOT NULL,
+g_name VARCHAR(20) NOT NULL,
+g_cate VARCHAR(20) NOT NULL,
+g_price VARCHAR(20) NOT NULL,
+g_color VARCHAR(20) NOT NULL,
+g_size VARCHAR(20) NOT NULL,
+g_date VARCHAR(20) NOT NULL,
+g_desc VARCHAR(80)
+)DEFAULT CHARSET=euckr;
+
+INSERT INTO tb_goods VALUES ('goods_1', 'id001', '1', '1', '1', '1', '1', now(), '1');
+
+INSERT INTO tb_goods VALUES ('goods_2', 'id002', '2', '2', '2', '2', '2', now(), '2');
+
+
+select substring(g_code,7)  from tb_goods;
+
+select max(CAST(substring(g_code,7) AS DECIMAL))  from tb_goods;
+
+select max(CAST(substring(g_code,7) AS DECIMAL)) as maxcol from tb_goods;
+
+
+
+//¿À¶óÅ¬¿ë
+create table oracle_goods(
+g_code VARCHAR2(20) NOT NULL PRIMARY KEY,
+ora_id VARCHAR2(20) NOT NULL,
+g_name VARCHAR2(20) NOT NULL,
+g_cate VARCHAR2(20) NOT NULL,
+g_price VARCHAR2(20) NOT NULL,
+g_color VARCHAR2(20) NOT NULL,
+g_size VARCHAR2(20) NOT NULL,
+g_date VARCHAR2(20) NOT NULL,
+g_desc VARCHAR2(80)
+)
+
+
+INSERT INTO oracle_goods VALUES ('goods_1', 'id001', '1', '1', '1', '1', '1', sysdate , '1');
+INSERT INTO oracle_goods VALUES ('goods_2', 'id002', '2', '2', '2', '2', '2', sysdate , '2');
+INSERT INTO oracle_goods VALUES ('goods_3', 'id003', '3', '3', '3', '3', '3', sysdate , '3');
+INSERT INTO oracle_goods VALUES ('goods_4', 'id003', '3', '3', '3', '3', '3', sysdate , '3');
+INSERT INTO oracle_goods VALUES ('goods_5', 'id003', '3', '3', '3', '3', '3', sysdate , '3');
+INSERT INTO oracle_goods VALUES ('goods_6', 'id003', '3', '3', '3', '3', '3', sysdate , '3');
+INSERT INTO oracle_goods VALUES ('goods_7', 'id003', '3', '3', '3', '3', '3', sysdate , '3');
+INSERT INTO oracle_goods VALUES ('goods_8', 'id003', '3', '3', '3', '3', '3', sysdate , '3');
+INSERT INTO oracle_goods VALUES ('goods_9', 'id003', '3', '3', '3', '3', '3', sysdate , '3');
+INSERT INTO oracle_goods VALUES ('goods_10', 'id003', '3', '3', '3', '3', '3', sysdate , '3');
+INSERT INTO oracle_goods VALUES ('goods_11', 'id003', '3', '3', '3', '3', '3', sysdate , '3');
+INSERT INTO oracle_goods VALUES ('goods_12', 'id003', '3', '3', '3', '3', '3', sysdate , '3');
+INSERT INTO oracle_goods VALUES ('goods_13', 'id003', '3', '3', '3', '3', '3', sysdate , '3');
+INSERT INTO oracle_goods VALUES ('goods_14', 'id003', '3', '3', '3', '3', '3', sysdate , '3');
+
+
+
+select substr(g_code,7)  from oracle_goods;
+
+select max(substr(g_code,7))  from oracle_goods;
+
+select max(to_number(substr(g_code,7)))  from oracle_goods;
+
+
