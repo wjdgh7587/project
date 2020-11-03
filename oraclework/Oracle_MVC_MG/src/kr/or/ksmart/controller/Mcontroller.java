@@ -10,7 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import kr.or.ksmart.forward.MActionForward;
 import kr.or.ksmart.Inter.MActionInterFace;
+import kr.or.ksmart.action.MDeleteProAction;
 import kr.or.ksmart.action.MInsertProAction;
+import kr.or.ksmart.action.MListProAction;
+import kr.or.ksmart.action.MSearchProAction;
+import kr.or.ksmart.action.MUpdateProAction;
 
 /*
  * 	컨테이너에서는 service 메소드를 호출하기 전에 HttpServletRequest 객체와 HttpServletResponse 객체를 생성하여 service 메소드에 파라미터로 전송한다.
@@ -73,7 +77,54 @@ public class Mcontroller extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+			
 		}
+		else if(command.equals("/Mlist/m_list.ksmart_m")) {
+			System.out.println("03_03 조건문 /Mlist/m_list.ksmart_m");
+			
+			action  = new MListProAction();
+			
+			try {
+				forward=action.execute(request, response );
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		//update
+		else if(command.equals("/MUpdate/m_update.ksmart_m")) {
+			System.out.println("03_04 조건문 /Mupdate/m_update.ksmart_m");
+			
+			action = new MUpdateProAction();
+			try {
+				forward=action.execute(request, response );
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+		}
+		else if(command.equals("/Mdelete/m_delete.ksmart_m")) {
+			System.out.println("03_04 조건문 /Mdelete/m_delete.ksmart_m");
+			
+			action = new MDeleteProAction();
+			try {
+				forward=action.execute(request, response );
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	
+		else if(command.equals("/Msearch/m_search_list.ksmart_m")) {
+			System.out.println("03_04 조건문 /Msearch/m_search_list.ksmart_m");
+			
+			action = new MSearchProAction();
+			try {
+				forward=action.execute(request, response );
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 
 		// --- 만약에 forward 객체참조변수 담겨있는 값이 null이 아니면
 		// --- 포워드 할 것인가? 리다이렉트 할것인가?
@@ -100,20 +151,11 @@ public class Mcontroller extends HttpServlet {
 		String uri = request.getRequestURI();
 		String path = request.getContextPath();
 		String cmd = uri.substring(path.length() + 1);
-		String cmd2 = uri.substring(path.length() + 2);
-		String cmd3 = uri.substring(path.length() + 3);
-		String cmd4 = uri.substring(path.length() - 1);
-		String cmd5 = uri.substring(path.length() - 2);
-		String cmd6 = uri.substring(path.length() - 3);
 
 		System.out.println(uri);
 		System.out.println(path);
 		System.out.println(cmd);
-		System.out.println(cmd2);
-		System.out.println(cmd3);
-		System.out.println(cmd4);
-		System.out.println(cmd5);
-		System.out.println(cmd6);
+
 
 		// return cmd;
 	}

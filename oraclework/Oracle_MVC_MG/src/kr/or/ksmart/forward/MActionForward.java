@@ -15,7 +15,7 @@ public class MActionForward {
 		return path;
 	}
 	public void setPath(String path) {
-		System.out.println(path + " : patht setPath MActionforward.java");
+		System.out.println(path + " : path setPath MActionforward.java");
 		this.path = path;
 	}
 
