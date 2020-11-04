@@ -1,5 +1,7 @@
 package kr.or.ksmart.action;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,12 +21,18 @@ public class MSearchProAction implements MActionInterFace {
 		String sv = request.getParameter("sv");
 		System.out.println(sk + "<-- sk ");
 		System.out.println(sv + "<-- sv ");
-		Member m = new Member();
+		
 		Mdao mdao = new Mdao();
-		mdao.mSearch(sk, sv);
+		ArrayList<Member> member = null;
+		member = mdao.mSearch(sk, sv);
 		
+		request.setAttribute("member", member);
 		
-		return null;
+		MActionForward mf = new MActionForward();
+		mf.setRedirect(false);
+		mf.setPath("/msearch/m_search_list.jsp");
+		
+		return mf;
 	}
 
 }

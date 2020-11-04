@@ -34,7 +34,7 @@ public class Mdao {
 			return;
 		}
 	}
-
+	//insert
 	public void mInsert(Member m) throws ClassNotFoundException, SQLException {
 		System.out.println("test system");
 
@@ -53,7 +53,7 @@ public class Mdao {
 		pstmt.close();
 		conn.close();
 	}
-
+	//list
 	public ArrayList<Member> mAllSelect() throws SQLException {
 		System.out.println("05전체회원조회 메소드");
 		alm = new ArrayList<Member>();
@@ -81,7 +81,7 @@ public class Mdao {
 		return alm;
 
 	}
-
+	//update for each person
 	public Member mSelectforUpdate(String ora_id) throws SQLException {
 		System.out.println("05 Mdao 생성자 메소드 실행");
 		conn = ds.getConnection();
@@ -106,7 +106,7 @@ public class Mdao {
 
 		return m;
 	}
-
+	//update all
 	public void mUpdate(Member m) throws SQLException {
 		System.out.println("05 Mdao 생성자 메소드 실행");
 		conn = ds.getConnection();
@@ -127,7 +127,7 @@ public class Mdao {
 		pstmt.close();
 		conn.close();
 	}
-
+	//update delete
 	public void mDelete(String ora_id) throws SQLException {
 		System.out.println("05 Mdao 생성자 메소드 실행");
 		conn = ds.getConnection();
@@ -141,15 +141,82 @@ public class Mdao {
 		conn.close();
 
 	}
-
-	public void mSearch(String a, String b) throws SQLException {
+	//update search
+	public ArrayList<Member> mSearch(String a, String b) throws SQLException {
 		System.out.println("05 Mdao 생성자 메소드 실행");
 		conn = ds.getConnection();
 		String selectQuery = "select * from oracle_member ";
-		if (a == null & b == null) {
-			System.out.println("");
+		
+		if (a == null && b == null) {
+			System.out.println("01 Both of values are null");
+			pstmt = conn.prepareStatement(selectQuery);
+		} 
+		else if (a != null && b.equals("")) {
+			System.out.println("02 Not null as sk and sv is empty");
 			pstmt = conn.prepareStatement(selectQuery);
 		}
+		else if(a != null && b != null) {
+			System.out.println("03 Both of values are not null");
+			pstmt = conn.prepareStatement(selectQuery+" WHERE "+a+"=?");
+			pstmt.setString(1, b);
+		}
+		System.out.println(pstmt + " : Checking pstmt");
+		rs=pstmt.executeQuery();
+		alm = new ArrayList<Member>();
+		
+		while(rs.next()) {
+			m= new Member();
+			
+			m.setOra_id(rs.getString("ora_id"));
+			m.setOra_pw(rs.getString("ora_pw"));
+			m.setOra_level(rs.getString("ora_level"));
+			m.setOra_name(rs.getString("ora_name"));
+			m.setOra_email(rs.getString("ora_email"));
+			alm.add(m);
+			System.out.println("Checking alm : "+alm);
+		}
+		pstmt.close();
+		rs.close();
+		conn.close();
 
+		return alm;
+
+	}
+	//login
+	public String mLoginCheck(String ora_id, String ora_pw) throws SQLException {
+		System.out.println("05 Mdao 생성자 메소드 실행");
+		String re = null;
+		String result1 ="LoginSuccess";
+		String result2  = "WrongPassord";
+		String result3 = "WrongId";
+		String result4 = "Rightid";
+		
+		conn = ds.getConnection();
+		pstmt = conn.prepareStatement("SELECT ora_pw FROM ORACLE_MEMBER WHERE ORA_ID = ?");
+		System.out.println(pstmt);
+		
+		pstmt.setString(1, ora_id);
+		
+		rs = pstmt.executeQuery();
+		
+		if(rs.next()) {
+			System.out.println("Login Success Mdao.java");
+			re = result4;
+			if(ora_pw.equals(rs.getString("ora_pw"))) {
+				re =result1;
+			}else {
+				re = result2;
+			}
+			
+		}else {
+			System.out.println("Wrong Id Mdao.java");
+			re = result3;
+		}
+	
+		pstmt.close();
+		rs.close();
+		conn.close();
+		
+		return re;
 	}
 }

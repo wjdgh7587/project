@@ -8,41 +8,27 @@ import kr.or.ksmart.dao.Mdao;
 import kr.or.ksmart.dto.Member;
 import kr.or.ksmart.forward.MActionForward;
 
-public class MUpdateProAction implements MActionInterFace {
+public class MLoginProAction implements MActionInterFace {
 
 	@Override
 	public MActionForward execute(HttpServletRequest request, HttpServletResponse resoibse) throws Exception {
 		// TODO Auto-generated method stub
-		
-		System.out.println("04-02 execute MUpdateProAction.java");
+		System.out.println("04-02 execute MLoginProAction.java");
 		
 		String ora_id = request.getParameter("ora_id");
 		String ora_pw = request.getParameter("ora_pw");
-		String ora_level = request.getParameter("ora_level");
-		String ora_name = request.getParameter("ora_name");
-		String ora_email = request.getParameter("ora_email");
+		String result = null;
 		
 		System.out.println(ora_id);
 		System.out.println(ora_pw);
-		System.out.println(ora_level);
-		System.out.println(ora_name);
-		System.out.println(ora_email);
-		
 		
 		Mdao mdao = new Mdao();
-		Member m = new Member();
+		mdao.mLoginCheck(ora_id, ora_pw);
 		
-		m.setOra_id(ora_id);
-		m.setOra_pw(ora_pw);
-		m.setOra_level(ora_level);
-		m.setOra_name(ora_name);
-		m.setOra_email(ora_email);
-		
-		mdao.mUpdate(m);
-		
+		//04단계 : MActionForward 통해 객체를 생성하고 리다이렉트로 경로를 세팅
 		MActionForward mf = new MActionForward();
-		mf.setRedirect(false);
-		mf.setPath(request.getContextPath()+"/msearch/m_search_list.jsp");
+		mf.setRedirect(true);
+		mf.setPath(request.getContextPath()+"/Mlist/m_list.ksmart_m");
 		
 		return mf;
 	}

@@ -13,6 +13,7 @@ import kr.or.ksmart.Inter.MActionInterFace;
 import kr.or.ksmart.action.MDeleteProAction;
 import kr.or.ksmart.action.MInsertProAction;
 import kr.or.ksmart.action.MListProAction;
+import kr.or.ksmart.action.MLoginProAction;
 import kr.or.ksmart.action.MSearchProAction;
 import kr.or.ksmart.action.MUpdateProAction;
 
@@ -79,6 +80,17 @@ public class Mcontroller extends HttpServlet {
 			
 			
 		}
+		//login
+		else if(command.equals("/MLogin/m_login_pro.ksmart_m")) {
+			System.out.println("03_03 조건문 /MLogin/m_login_pro.ksmart_m");
+			action  = new MLoginProAction();
+			try {
+				forward=action.execute(request, response );
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			//llsit
+		}
 		else if(command.equals("/Mlist/m_list.ksmart_m")) {
 			System.out.println("03_03 조건문 /Mlist/m_list.ksmart_m");
 			
@@ -103,6 +115,7 @@ public class Mcontroller extends HttpServlet {
 			
 			
 		}
+		//delete
 		else if(command.equals("/Mdelete/m_delete.ksmart_m")) {
 			System.out.println("03_04 조건문 /Mdelete/m_delete.ksmart_m");
 			
@@ -113,7 +126,7 @@ public class Mcontroller extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-	
+		//search
 		else if(command.equals("/Msearch/m_search_list.ksmart_m")) {
 			System.out.println("03_04 조건문 /Msearch/m_search_list.ksmart_m");
 			
